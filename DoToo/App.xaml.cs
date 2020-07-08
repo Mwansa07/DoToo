@@ -10,7 +10,6 @@ namespace DoToo
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
