@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DoToo.iOS
+namespace DoToo.Droid
 {
     public class Bootstrapper : DoToo.Bootstrapper
     {
