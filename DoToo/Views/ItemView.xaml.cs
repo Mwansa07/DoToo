@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using DoToo.ViewModels;
-
 using Xamarin.Forms;
 
 namespace DoToo.Views
 {
-    public partial class MainView : ContentPage
+    public partial class ItemView : ContentPage
     {
-        public MainView(MainViewModel viewModel)
+        public ItemView(ItemViewModel viewModel)
         {
             InitializeComponent();
             viewModel.Navigation = Navigation;
