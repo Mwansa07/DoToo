@@ -22,5 +22,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 </Project>
