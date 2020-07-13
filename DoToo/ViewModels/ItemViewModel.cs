@@ -1,5 +1,8 @@
 ﻿using System;
 using DoToo.Repositories;
+using System.Windows.Input;
+using DoToo.Models;
+using Xamarin.Forms;
 
 namespace DoToo.ViewModels
 {
@@ -7,9 +10,18 @@ namespace DoToo.ViewModels
     {
         private readonly TodoItemRepository repository;
 
+        public TodoItem Item { get; set; }
+
         public ItemViewModel(TodoItemRepository repository)
         {
             this.repository = repository;
+            Item = new TodoItem() { Due = DateTime.Now.AddDays(1) };
         }
+
+        public ICommand Save => new Command(async () =>
+        {
+            await repository.AddOrUpdate(Item);
+            await Navigation.PopAsync();
+        });
     }
 }
