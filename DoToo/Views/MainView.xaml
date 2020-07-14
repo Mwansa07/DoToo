@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:DoToo"
              xmlns:converters="clr-namespace:DoToo.Converters"
              x:Class="DoToo.Views.MainView"
              Title="Do Too!">
@@ -23,12 +22,18 @@
         </Grid.RowDefinitions>
 
         <Button Text="Toggle filter"/>
-        <ListView Grid.Row="1"
+        <ListView x:Name="ItemsListView"
+                  Grid.Row="1"
                   RowHeight="70"
-                  ItemsSource="{Binding Items}">
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="{Binding StatusText}"
+                                      Command="{Binding ToggleCompleted}" />
+                        </ViewCell.ContextActions>
                         <Grid Padding="15,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10" />

@@ -22,6 +22,29 @@ namespace DoToo.ViewModels
 
         private readonly TodoItemRepository repository;
 
+        public TodoItemViewModel SelectedItem
+        {
+            get { return null; }
+            set
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                    await NavigateToItem(value));
+            }
+        }
+
+        private async Task NavigateToItem(TodoItemViewModel item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var itemView = Resolver.Resolve<ItemView>();
+            var vm = itemView.BindingContext as ItemViewModel;
+            vm.Item = item.Item;
+            await Navigation.PushAsync(itemView);
+        }
+
         public MainViewModel(TodoItemRepository repository)
         {
             repository.OnItemAdded += (sender, item) =>
