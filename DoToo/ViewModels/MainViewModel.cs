@@ -59,6 +59,12 @@ namespace DoToo.ViewModels
         private async Task LoadData()
         {
             var items = await repository.GetItems();
+
+            if (!ShowAll)
+            {
+                items = items.Where(x => x.Completed == false).ToList();
+            }
+
             var itemViewModels = items.Select(i => CreateTodoItemViewModel(i));
             Items = new ObservableCollection<TodoItemViewModel>(itemViewModels);
         }
@@ -72,6 +78,24 @@ namespace DoToo.ViewModels
 
         private void ItemStatusChanged(object sender, EventArgs e)
         {
+            if (sender is TodoItemViewModel item)
+            {
+                if (!ShowAll && item.Item.Completed)
+                {
+                    Items.Remove(item);
+                }
+                Task.Run(async () => await repository.UpdateItem(item.Item));
+            }
         }
+
+        public bool ShowAll { get; set; }
+
+        public string FilterText => ShowAll ? "All" : "Active";
+
+        public ICommand ToggleFilter => new Command(async () =>
+        {
+            ShowAll = !ShowAll;
+            await LoadData();
+        });
     }
 }
